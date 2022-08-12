@@ -1,0 +1,17 @@
+name: "GebokusabaPlugin"
+version: "${project.version}"
+main: "com.keichankotaro.gebokusaba.gebokusabaplugin.GebokusabaPlugin"
+api-version: "1.19"
+
+commands:
+  tpbase:
+    aliases: [ tpb, gobase, gob ]
+    description: "鉄2個消費して本拠点にテレポートします。"
+    usage: "/tpbase, /gobase 短縮:/tpb, /gob"
+  tpbasewithentity:
+    aliases: [ tpbwe, tpbentity, tpbe, gobasewithentity, gobentity, gobe, gobwe ]
+    description: "鉄4個消費して1番近くのエンティティ(ドロップアイテム・ボート等を含む)と一緒に本拠点にテレポートします。"
+    usage: "/tpbwe, /tpbe, /gobwe, /gobe"
+  tpbrl:
+    description: "config.ymlをリロードします。"
+    usage: "/<command>"
