@@ -17,14 +17,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class GebokusabaPlugin extends JavaPlugin{
 	
 	public static Double getMin(List<Double> list) {
-		// initialize `min` to some maximum value
 		Double min = Double.MAX_VALUE;
 
-		// loop through every list element and compare the minimum
-		// found so far with the current value
 		for (Double i: list)
 		{
-			// update `min` if found to be more than the current element
 			if (min > i) {
 				min = i;
 			}
@@ -92,6 +88,9 @@ public class GebokusabaPlugin extends JavaPlugin{
 			sender.sendMessage("config.ymlの読み込み完了");
 			getLogger().info("config.ymlの読み込み完了");
 			return true;
+			// ここまで拠点tp
+			
+			// ここから拠点tp+エンティティと一緒に
 		} else if(cmd.getName().equalsIgnoreCase("tpbasewithentity")) {
 			
 			Player player = (Player)sender;
@@ -139,7 +138,8 @@ public class GebokusabaPlugin extends JavaPlugin{
 			return true;
 		}
 		return false;
+		// ここまで拠点tp+エンティティと一緒に
 	}
-	// ここまで拠点tp
+	
 }
 	
