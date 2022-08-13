@@ -9,6 +9,10 @@
 `/tpbe`・・・鉄4個消費して5x5x5の範囲にいる一番近くのエンティティ(ボート・トロッコ・ドロップアイテム等を含む)と一緒に拠点にテレポート。
 その他のコマンド(同じアクション):`/tpbasewithentity`, `/tpbwe`, `/gobasewithentity`, `/gobwe`, `/gobe`
 
+`/seed`・・・ワールドのシード値の表示。
+
+`/rlg`・・・config.ymlの再読み込み。
+
 ## config.ymlの設定
 config.ymlには拠点の座標を入れます。
 ```
