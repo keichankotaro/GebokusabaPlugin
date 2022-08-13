@@ -3,11 +3,11 @@
 メインプログラムは[こちら](https://github.com/keichankotaro/GebokusabaPlugin/blob/main/src/main/java/com/keichankotaro/gebokusaba/gebokusabaplugin/GebokusabaPlugin.java)
 
 ## 使い方
-/tpb・・・鉄2個消費して拠点にテレポート
-その他のコマンド(同じアクション):/tpbase, /gobase, /gob
+`/tpb`・・・鉄2個消費して拠点にテレポート
+その他のコマンド(同じアクション):`/tpbase`, `/gobase`, `/gob`
 
-/tpbe・・・鉄4個消費して5x5x5の範囲にいる一番近くのエンティティ(ボート・トロッコ・ドロップアイテム等を含む)と一緒に拠点にテレポート。
-その他のコマンド(同じアクション):/tpbasewithentity, /tpbwe, /gobasewithentity, /gobwe, /gobe
+`/tpbe`・・・鉄4個消費して5x5x5の範囲にいる一番近くのエンティティ(ボート・トロッコ・ドロップアイテム等を含む)と一緒に拠点にテレポート。
+その他のコマンド(同じアクション):`/tpbasewithentity`, `/tpbwe`, `/gobasewithentity`, `/gobwe`, `/gobe`
 
 ## config.ymlの設定
 config.ymlには拠点の座標を入れます。
