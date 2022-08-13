@@ -32,7 +32,7 @@ public class GebokusabaPlugin extends JavaPlugin{
 
 		return min;
 	}
-	
+
 	private Method getMethod(String name, Class<?> clazz) {
 		for (Method m : clazz.getDeclaredMethods()) {
 			if (m.getName().equals(name))
