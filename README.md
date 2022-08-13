@@ -1,5 +1,6 @@
 # GebokusabaPlugin
 下僕鯖(マインクラフトサーバー)に使われている独自プラグインです。
+メインプログラムは[こちら](https://github.com/keichankotaro/GebokusabaPlugin/blob/main/src/main/java/com/keichankotaro/gebokusaba/gebokusabaplugin/GebokusabaPlugin.java)
 
 ## 使い方
 /tpb・・・鉄2個消費して拠点にテレポート
