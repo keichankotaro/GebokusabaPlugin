@@ -4,7 +4,6 @@
   <artifactId>GebokusabaPlugin</artifactId>
   <version>1.0.2</version>
   
-  <!-- ↓ Spigot-repository -->
   <repositories>
     <repository>
       <id>spigot-repo</id>
@@ -12,28 +11,23 @@
     </repository>
   </repositories>
 
-  <!-- ↓ Spigot-API -->
   <dependencies>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
 
-      <!-- ↓ (Minecraftバージョン)-R0.1-SNAPSHOT -->
       <version>1.19.2-R0.1-SNAPSHOT</version>
 
       <scope>provided</scope>
     </dependency>
   </dependencies>
 
-  <!-- ↓ プロパティ設定 -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- ↓ Java version 12 -->
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
   
-  <!-- plugin.yml を pom.xml と連動させる -->
   <build>
     <resources>
       <resource>
