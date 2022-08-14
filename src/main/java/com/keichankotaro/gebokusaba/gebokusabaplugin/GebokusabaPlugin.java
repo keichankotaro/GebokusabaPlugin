@@ -20,6 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class GebokusabaPlugin extends JavaPlugin{
 	
+	// リスト内の最小値を取得。(Double型)
 	public static Double getMin(List<Double> list) {
 		Double min = Double.MAX_VALUE;
 
@@ -32,7 +33,6 @@ public class GebokusabaPlugin extends JavaPlugin{
 
 		return min;
 	}
-
 	private Method getMethod(String name, Class<?> clazz) {
 		for (Method m : clazz.getDeclaredMethods()) {
 			if (m.getName().equals(name))
@@ -57,6 +57,8 @@ public class GebokusabaPlugin extends JavaPlugin{
 	// ここから拠点tp
 	@SuppressWarnings("unlikely-arg-type")
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+		
+		// ここからクライアントの言語の取得
 		// 日本語:ja_jp
 		// 英語:en_us
 		Player sendplayer = (Player)sender;
@@ -84,6 +86,7 @@ public class GebokusabaPlugin extends JavaPlugin{
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+		// ここまでクライアントの言語の取得
 		
 		if(cmd.getName().equalsIgnoreCase("tpbase")) {
 			Player player = (Player)sender;
@@ -135,6 +138,9 @@ public class GebokusabaPlugin extends JavaPlugin{
 				}
 			}
 			return true;
+			// ここまで拠点tp
+			
+			// ここからコンフィグのリロード
 		} else if(cmd.getName().equalsIgnoreCase("rlgeboku")) {
 			getLogger().info("config.ymlの読み込み中...");
 			sender.sendMessage("config.ymlの読み込み中...");
@@ -143,6 +149,9 @@ public class GebokusabaPlugin extends JavaPlugin{
 			sender.sendMessage("config.ymlの読み込み完了");
 			getLogger().info("config.ymlの読み込み完了");
 			return true;
+			// ここまでコンフィグのリロード
+			
+			// ここから拠点tp(+エンティティ)
 		} else if(cmd.getName().equalsIgnoreCase("tpbasewithentity")) {
 			
 			Player player = (Player)sender;
@@ -208,6 +217,9 @@ public class GebokusabaPlugin extends JavaPlugin{
 				}
 			} 
 			return true;
+			// ここまで拠点tp(+エンティティ)
+			
+			// ここからシード値の取得
 		} else if(cmd.getName().equalsIgnoreCase("seed")) {
 			Player player = (Player)sender;
 			
@@ -218,9 +230,8 @@ public class GebokusabaPlugin extends JavaPlugin{
 			}
 			
 			return true;
+			// ここまでシード値の取得
 		}
 		return false;
 	}
-	// ここまで拠点tp
 }
-	
