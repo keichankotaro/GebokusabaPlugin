@@ -51,6 +51,8 @@ public class GebokusabaPlugin extends JavaPlugin{
 		getLogger().info("config.ymlの読み込み完了");
 		
 		/*
+		何かの作りかけです。乞うご期待!
+		
 		ItemStack customItem = new ItemStack(Material.*****, 1);
 		ItemMeta customMeta = customItem.getItemMeta();
 		if(customMeta == null) return;
