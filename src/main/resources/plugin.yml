@@ -21,3 +21,4 @@ commands:
   seed:
     description: "seed値を表示します。"
     usage: "/<command>"
+  

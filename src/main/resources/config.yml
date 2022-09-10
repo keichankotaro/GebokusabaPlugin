@@ -5,3 +5,10 @@ base:
   yaw: 0
   pitch: 0
   world: world
+items:
+  tpalone:
+    item: IRON_INGOT
+    num: 2
+  tpwithentity:
+    item: IRON_INGOT
+    num: 4
