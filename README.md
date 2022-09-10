@@ -23,7 +23,15 @@ base:
   yaw: テレポートしたとき向きたい向き(上下)
   pitch: テレポートしたとき向きたい向き(左右)
   world: 拠点があるワールド(world, world_nether, world_the_end等)
+items:
+  tpalone:
+    item: 拠点tpする時に使用するアイテム
+    num: 上のアイテムの必要数
+  tpwithentity:
+    item: エンティティと一緒に拠点tpする時に使用するアイテム
+    num: 上のアイテムの必要数
 ```
+アイテムを設定するときは、[こちら](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html)を参照してください。
 初期値は次のようになっています。
 ```
 base:
@@ -33,5 +41,11 @@ base:
   yaw: 0
   pitch: 0
   world: world
+items:
+  tpalone:
+    item: IRON_INGOT
+    num: 2
+  tpwithentity:
+    item: IRON_INGOT
+    num: 4
 ```
-注意:1行目の`base:`は絶対に変更しないでください。
