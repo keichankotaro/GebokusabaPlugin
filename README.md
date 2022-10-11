@@ -1,6 +1,6 @@
-# GebokusabaPlugin
-下僕鯖(マインクラフトサーバー)に使われている独自プラグインです。
-メインプログラムは[こちら](https://github.com/keichankotaro/GebokusabaPlugin/blob/main/src/main/java/com/keichankotaro/gebokusaba/gebokusabaplugin/GebokusabaPlugin.java)
+# MatasabaPlugin
+また鯖(マインクラフトサーバー)に使われている独自プラグインです。
+メインプログラムは[こちら](https://github.com/keichankotaro/MatasabaPlugin/blob/main/src/main/java/com/keichankotaro/gebokusaba/gebokusabaplugin/GebokusabaPlugin.java)
 
 ## 使い方
 `/tpb`・・・鉄2個消費して拠点にテレポート
@@ -11,7 +11,7 @@
 
 `/seed`・・・ワールドのシード値の表示。
 
-`/rlg`・・・config.ymlの再読み込み。
+`/rlm`・・・config.ymlの再読み込み。
 
 ## config.ymlの設定
 config.ymlには拠点の座標を入れます。
