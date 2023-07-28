@@ -1,7 +1,7 @@
 name: "MatasabaPlugin"
 version: "${project.version}"
 main: "com.keichankotaro.matasaba.matasabaplugin.MatasabaPlugin"
-api-version: "1.19"
+api-version: "1.20"
 author: "keichan kotaro"
 website: "https://keichankotaro.ml/"
 
