@@ -1,6 +1,6 @@
-name: "GebokusabaPlugin"
+name: "MatasabaPlugin"
 version: "${project.version}"
-main: "com.keichankotaro.gebokusaba.gebokusabaplugin.GebokusabaPlugin"
+main: "com.keichankotaro.matasaba.matasabaplugin.MatasabaPlugin"
 api-version: "1.19"
 author: "keichan kotaro"
 website: "https://keichankotaro.ml/"
@@ -14,8 +14,8 @@ commands:
     aliases: [ tpbwe, tpbentity, tpbe, gobasewithentity, gobentity, gobe, gobwe ]
     description: "鉄4個消費して1番近くのエンティティ(ドロップアイテム・ボート等を含む)と一緒に本拠点にテレポートします。"
     usage: "/tpbwe, /tpbe, /gobwe, /gobe"
-  rlgeboku:
-    aliases: [ "rlg", "grl" ]
+  reload:
+    aliases: [ "rl" ]
     description: "config.ymlをリロードします。"
     usage: "/<command>"
   seed:

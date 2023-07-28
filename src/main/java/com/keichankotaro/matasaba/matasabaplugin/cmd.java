@@ -1,4 +1,4 @@
-package com.keichankotaro.gebokusaba.gebokusabaplugin;
+package com.keichankotaro.matasaba.matasabaplugin;
 
 import java.io.IOException;
 

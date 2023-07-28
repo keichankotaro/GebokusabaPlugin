@@ -1,4 +1,4 @@
-package com.keichankotaro.gebokusaba.gebokusabaplugin;
+package com.keichankotaro.matasaba.matasabaplugin;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -65,11 +65,11 @@ public class GebokusabaPlugin extends JavaPlugin{
 		Bukkit.addRecipe(customRecipe);
 		*/
 		
-		getLogger().info("下僕鯖プラグインが起動しました。");
+		getLogger().info("また鯖プラグインが起動しました。");
 	}
 	
 	public void onDisable() {
-		getLogger().info("下僕鯖プラグインを終了しました。");
+		getLogger().info("また鯖プラグインを終了しました。");
 	}
 	
 	
