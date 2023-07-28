@@ -10,18 +10,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MatasabaPlugin extends JavaPlugin{
+public class MatasabaPlugin extends JavaPlugin {
 	
 	// リスト内の最小値を取得。(Double型)
 	public static Double getMin(List<Double> list) {
@@ -57,7 +54,7 @@ public class MatasabaPlugin extends JavaPlugin{
 		ItemMeta customMeta = customItem.getItemMeta();
 		if(customMeta == null) return;
 		customMeta.setDisplayName(ChatColor.AQUA + "******* ***: " + ChatColor.RED + "None");
-		NamespacedKey customKey = new NamespacedKey(this, "storagebox");
+		NamespacedKey customKey = new NamespacedKey(this, "**********");
 		ShapedRecipe customRecipe = new ShapedRecipe(customKey, customItem);
 		customRecipe.shape("CCC", "CIC", "CCC");
 		customRecipe.setIngredient('C', Material.*****);
@@ -65,13 +62,14 @@ public class MatasabaPlugin extends JavaPlugin{
 		Bukkit.addRecipe(customRecipe);
 		*/
 		
+		getServer().getPluginManager().registerEvents(new BlockManager(), this);
+		
 		getLogger().info("また鯖プラグインが起動しました。");
 	}
 	
 	public void onDisable() {
 		getLogger().info("また鯖プラグインを終了しました。");
 	}
-	
 	
 	// ここから拠点tp
 	@SuppressWarnings("unlikely-arg-type")
@@ -258,18 +256,5 @@ public class MatasabaPlugin extends JavaPlugin{
 			// ここまでシード値の取得
 		}
 		return false;
-	}
-	
-	@EventHandler
-	public void placeevent(BlockPlaceEvent e) {
-		Player player = e.getPlayer(); // ブロックを置いたプレイヤーを取得する
-		Block block = e.getBlock(); // 設置したブロックを取得
-
-		// メッセージを組み立て
-		StringBuilder builder = new StringBuilder("BlockPlaceEventが発生：");
-		builder.append("設置した物=").append(block.toString()).append(" ");
-
-		// プレイヤーにメッセージを送信
-		player.sendMessage(builder.toString());
 	}
 }
