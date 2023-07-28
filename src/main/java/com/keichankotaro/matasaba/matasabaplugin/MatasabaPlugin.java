@@ -21,7 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class GebokusabaPlugin extends JavaPlugin{
+public class MatasabaPlugin extends JavaPlugin{
 	
 	// リスト内の最小値を取得。(Double型)
 	public static Double getMin(List<Double> list) {
