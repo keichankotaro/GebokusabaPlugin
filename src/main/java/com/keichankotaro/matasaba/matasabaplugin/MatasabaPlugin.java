@@ -33,6 +33,8 @@ public class MatasabaPlugin extends JavaPlugin {
 
 		return min;
 	}
+
+	//public static HashMap playerItemTracker;
 	private Method getMethod(String name, Class<?> clazz) {
 		for (Method m : clazz.getDeclaredMethods()) {
 			if (m.getName().equals(name))
@@ -62,12 +64,18 @@ public class MatasabaPlugin extends JavaPlugin {
 		Bukkit.addRecipe(customRecipe);
 		*/
 		
+		//getServer().getPluginManager().registerEvents(new ItemListener(), this);
+		//playerItemTracker = new HashMap<>();
 		getServer().getPluginManager().registerEvents(new BlockManager(), this);
+		DBManager.createTable();
+		DBManager.connect();
 		
 		getLogger().info("また鯖プラグインが起動しました。");
 	}
 	
 	public void onDisable() {
+		//playerItemTracker.clear();
+		DBManager.disconnect();
 		getLogger().info("また鯖プラグインを終了しました。");
 	}
 	
