@@ -67,8 +67,8 @@ public class MatasabaPlugin extends JavaPlugin {
 		//getServer().getPluginManager().registerEvents(new ItemListener(), this);
 		//playerItemTracker = new HashMap<>();
 		getServer().getPluginManager().registerEvents(new BlockManager(), this);
-		DBManager.createTable();
 		DBManager.connect();
+		DBManager.createTable();
 		
 		getLogger().info("また鯖プラグインが起動しました。");
 	}
