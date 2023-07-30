@@ -2,6 +2,7 @@ package com.keichankotaro.matasaba.matasabaplugin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBManager {
@@ -42,6 +43,16 @@ public class DBManager {
     		connection.createStatement().execute(query);
     	} catch (SQLException e) {
     		e.printStackTrace();
+    	}
+    }
+    
+    public static ResultSet RUN_DB(String query) {
+    	try {
+    		ResultSet sql = connection.createStatement().executeQuery(query);
+    		return sql;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		return null;
     	}
     }
 }
