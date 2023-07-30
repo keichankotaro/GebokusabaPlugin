@@ -90,9 +90,9 @@ public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCo
 				return Arrays.asList("ID", "UUID", "X", "Y", "Z", "Yaw", "Pitch", "World", "FUNC", "ITEM", "NUM", "TIME");
 			} else if (args.length >= 2 && args.length % 2 == 1 && args[0].equalsIgnoreCase("search") && args[args.length-2].equalsIgnoreCase("func")) {
 				return Arrays.asList("PLACE", "BREAK", "BURN", "EXPLODE");
-			} else if (args.length >= 2 && args.length % 2 == 1 && args[0].equalsIgnoreCase("search") && args[args.length-2].equalsIgnoreCase("world")) {
+			} /*else if (args.length >= 2 && args.length % 2 == 1 && args[0].equalsIgnoreCase("search") && args[args.length-2].equalsIgnoreCase("world")) {
 				return Arrays.asList("world", "world_nether", "world_the_end");
-			} else {
+			}*/ else {
 				return null;
 			}
 		}
