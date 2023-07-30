@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -11,14 +12,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MatasabaPlugin extends JavaPlugin {
+public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCompleter {
 	
 	// リスト内の最小値を取得。(Double型)
 	public static Double getMin(List<Double> list) {
@@ -69,7 +72,6 @@ public class MatasabaPlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new BlockManager(), this);
 		DBManager.connect();
 		DBManager.createTable();
-		
 		getLogger().info("また鯖プラグインが起動しました。");
 	}
 	
@@ -77,6 +79,24 @@ public class MatasabaPlugin extends JavaPlugin {
 		//playerItemTracker.clear();
 		DBManager.disconnect();
 		getLogger().info("また鯖プラグインを終了しました。");
+	}
+	
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+		if (cmd.getName().equalsIgnoreCase("event")) {
+			if (args.length == 1) {
+				return Arrays.asList("list", "search");
+			} else if (args.length >= 2 && args.length % 2 == 0 && args[0].equalsIgnoreCase("search")) {
+				return Arrays.asList("ID", "UUID", "X", "Y", "Z", "Yaw", "Pitch", "World", "FUNC", "ITEM", "NUM", "TIME");
+			} else if (args.length >= 2 && args.length % 2 == 1 && args[0].equalsIgnoreCase("search") && args[args.length-2].equalsIgnoreCase("func")) {
+				return Arrays.asList("PLACE", "BREAK", "BURN", "EXPLODE");
+			} else if (args.length >= 2 && args.length % 2 == 1 && args[0].equalsIgnoreCase("search") && args[args.length-2].equalsIgnoreCase("world")) {
+				return Arrays.asList("world", "world_nether", "world_the_end");
+			} else {
+				return null;
+			}
+		}
+		return null;
 	}
 	
 	// ここから拠点tp
@@ -262,7 +282,9 @@ public class MatasabaPlugin extends JavaPlugin {
 			
 			return true;
 			// ここまでシード値の取得
-		}
+		} /*else if (cmd.getName().equalsIgnoreCase("event")) {
+			System.out.println(args);
+		}*/
 		return false;
 	}
 }
