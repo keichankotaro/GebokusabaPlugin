@@ -23,4 +23,9 @@ commands:
     usage: "/<command>"
   event:
     description: "For Admin"
+    permission: matasabaplugin.commands.event
+    permission-message: "You don't have any permissions!"
     usage: "/<command>"
+permissions:
+  matasabaplugin.commands.event:
+    default: op
