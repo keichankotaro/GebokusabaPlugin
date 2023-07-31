@@ -23,6 +23,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCompleter {
 	
+	private final int pageSize = 10;
+    private int currentPage = 1;
+	
 	// リスト内の最小値を取得。(Double型)
 	public static Double getMin(List<Double> list) {
 		Double min = Double.MAX_VALUE;
@@ -282,9 +285,33 @@ public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCo
 			
 			return true;
 			// ここまでシード値の取得
-		} /*else if (cmd.getName().equalsIgnoreCase("event")) {
-			System.out.println(args);
-		}*/
+		} else if (cmd.getName().equalsIgnoreCase("event")) {
+			// DBからデータを取ってきていろいろ表示する
+			List<String> temp1 = new ArrayList<String>();
+			List<String> temp2 = new ArrayList<String>();
+
+	        for (int i = 1; i < args.length; i += 2) {
+	            temp1.add(args[i]);
+	        }
+
+	        for (int i = 2; i < args.length; i += 2) {
+	            temp2.add(args[i]);
+	        }
+	        
+			List<List<String>> res = DBSearch.search(temp1.toArray(new String[temp1.size()]), temp2.toArray(new String[temp2.size()]));
+			for (int y = 0; y < res.size(); y++) {
+				if (res.get(y).get(8).equalsIgnoreCase("break")) {
+					sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を破壊しました。");
+				} else if (res.get(y).get(8).equalsIgnoreCase("place")) {
+					sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "に" + res.get(y).get(9) + "を設置しました。");
+				} else if (res.get(y).get(8).equalsIgnoreCase("burn")) {
+					sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を焼損しました。");
+				} else if (res.get(y).get(8).equalsIgnoreCase("explode")) {
+					sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を爆砕しました。");
+				}
+			}
+			return true;
+		}
 		return false;
 	}
 }

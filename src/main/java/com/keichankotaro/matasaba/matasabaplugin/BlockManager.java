@@ -23,6 +23,7 @@ public class BlockManager implements Listener {
 	
 	    // メッセージを表示します。
 	    //getLogger().info(playerName + " がブロックを設置しました。ブロック ID は " + blockId + "、位置は " + location + " です。");
+	    /*
 	    System.out.println("MCID(UUID): " + playerName + "(" + event.getPlayer().getUniqueId() + ")");
 	    System.out.println("Block ID: " + blockId);
 	    System.out.println("x: " + location.getBlockX());
@@ -32,6 +33,7 @@ public class BlockManager implements Listener {
 	    System.out.println("yaw: " + location.getYaw());
 	    System.out.println("World: " + location.getWorld().getName());
 	    System.out.println("Type: Place");
+	    */
 	    DBManager.AddDB_BLOCK(playerName, event.getPlayer().getUniqueId()+"", location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getPitch(), location.getYaw(), location.getWorld().getName(), "PLACE", blockId+"", 0, (int) (System.currentTimeMillis() / 1000));
 	}
 	
@@ -48,6 +50,7 @@ public class BlockManager implements Listener {
 	
 	    // メッセージを表示します。
 	    //getLogger().info(playerName + " がブロックを設置しました。ブロック ID は " + blockId + "、位置は " + location + " です。");
+	    /*
 	    System.out.println("MCID(UUID): " + playerName + "(" + event.getPlayer().getUniqueId() + ")");
 	    System.out.println("Block ID: " + blockId);
 	    System.out.println("x: " + location.getBlockX());
@@ -57,6 +60,7 @@ public class BlockManager implements Listener {
 	    System.out.println("yaw: " + location.getYaw());
 	    System.out.println("World: " + location.getWorld().getName());
 	    System.out.println("Type: Break");
+	    */
 	    DBManager.AddDB_BLOCK(playerName, event.getPlayer().getUniqueId()+"", location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getPitch(), location.getYaw(), location.getWorld().getName(), "BREAK", blockId+"", 0, (int) (System.currentTimeMillis() / 1000));
 	}
 	
@@ -70,6 +74,7 @@ public class BlockManager implements Listener {
 	
 	    // メッセージを表示します。
 	    //getLogger().info(playerName + " がブロックを設置しました。ブロック ID は " + blockId + "、位置は " + location + " です。");
+	    /*
 	    System.out.println("Block ID: " + blockId);
 	    System.out.println("x: " + location.getBlockX());
 	    System.out.println("y: " + location.getBlockY());
@@ -78,9 +83,11 @@ public class BlockManager implements Listener {
 	    System.out.println("yaw: " + location.getYaw());
 	    System.out.println("World: " + location.getWorld().getName());
 	    System.out.println("Type: Burn");
+	    */
 	    DBManager.AddDB_BLOCK("NONE", "NONE", location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getPitch(), location.getYaw(), location.getWorld().getName(), "BURN", blockId+"", 0, (int) (System.currentTimeMillis() / 1000));
 	}
 	
+	/*
 	@EventHandler
 	public void onBlockExplode(BlockExplodeEvent event) {
 		// ブロックの ID を取得します。
@@ -100,5 +107,12 @@ public class BlockManager implements Listener {
 	    System.out.println("World: " + location.getWorld().getName());
 	    System.out.println("Type: Explode");
 	    DBManager.AddDB_BLOCK("NONE", "NONE", location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getPitch(), location.getYaw(), location.getWorld().getName(), "EXPLODE", blockId+"", 0, (int) (System.currentTimeMillis() / 1000));
+	}
+	*/
+	
+	@EventHandler
+	public void onBlockExplode(BlockExplodeEvent event) {
+	    System.out.println("Block explosion event triggered!");
+	    // 以下のコードをそのまま続けます...
 	}
 }

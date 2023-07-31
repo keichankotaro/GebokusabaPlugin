@@ -11,6 +11,7 @@ public class DBManager {
     public static void connect() {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:plugins/MatasabaPlugin/database.db");
+            System.out.println("Connected to database.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -20,6 +21,7 @@ public class DBManager {
         try {
             if (connection != null) {
                 connection.close();
+                System.out.println("Disconnected from database.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,7 +32,7 @@ public class DBManager {
     // 例えば、テーブルを作成するメソッドを以下に示します：
     public static void createTable() {
         try {
-            String query_block = "CREATE TABLE IF NOT EXISTS [block] ([ID] TEXT, [UUID] TEXT, [X] INTEGER, [Y] INTEGER, [Z] INTEGER, [Yaw] REAL, [Pitct] REAL, [World] TEXT, [FUNC] TEXT, [ITEM] TEXT, [NUM] INTEGER, [TIME] INTEGER);";
+            String query_block = "CREATE TABLE IF NOT EXISTS [block] ([ID] TEXT, [UUID] TEXT, [X] INTEGER, [Y] INTEGER, [Z] INTEGER, [Yaw] REAL, [Pitch] REAL, [World] TEXT, [FUNC] TEXT, [ITEM] TEXT, [NUM] INTEGER, [TIME] INTEGER);";
             connection.createStatement().execute(query_block);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,10 +48,10 @@ public class DBManager {
     	}
     }
     
-    public static ResultSet RUN_DB(String query) {
+    public static ResultSet RUN_DB(String query, Connection connection) {
+    	System.out.println("query is " + query);
     	try {
-    		ResultSet sql = connection.createStatement().executeQuery(query);
-    		return sql;
+    		return connection.createStatement().executeQuery(query);
     	} catch (SQLException e) {
     		e.printStackTrace();
     		return null;
