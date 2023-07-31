@@ -109,31 +109,37 @@ public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCo
 		// ここからクライアントの言語の取得
 		// 日本語:ja_jp
 		// 英語:en_us
-		Player sendplayer = (Player)sender;
-		Object ep = null;
-		Field f = null;
-		
-		try {
-			ep = getMethod("getHandle", sendplayer.getClass()).invoke(sendplayer, (Object[]) null);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		
-		try {
-			f = ep.getClass().getDeclaredField("locale");
-		} catch (NoSuchFieldException | SecurityException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		f.setAccessible(true);
+		Player sendplayer = null;
 		String language = null;
-		try {
-			language = (String) f.get(ep);
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+		if (sender instanceof Player) {
+			// プレイヤーが実行
+			sendplayer = (Player) sender;
+			
+			Object ep = null;
+			Field f = null;
+			
+			try {
+				ep = getMethod("getHandle", sendplayer.getClass()).invoke(sendplayer, (Object[]) null);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+			
+			try {
+				f = ep.getClass().getDeclaredField("locale");
+			} catch (NoSuchFieldException | SecurityException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+			f.setAccessible(true);
+			try {
+				language = (String) f.get(ep);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 		}
+
 		// ここまでクライアントの言語の取得
 		
 		if(cmd.getName().equalsIgnoreCase("tpbase")) {
@@ -286,47 +292,93 @@ public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCo
 			return true;
 			// ここまでシード値の取得
 		} else if (cmd.getName().equalsIgnoreCase("event")) {
-			if (args[0].equalsIgnoreCase("search")) {
-				// DBからデータを取ってきていろいろ表示する
-				List<String> temp1 = new ArrayList<String>();
-				List<String> temp2 = new ArrayList<String>();
-	
-		        for (int i = 1; i < args.length; i += 2) {
-		            temp1.add(args[i]);
-		        }
-	
-		        for (int i = 2; i < args.length; i += 2) {
-		            temp2.add(args[i]);
-		        }
-		        
-				List<List<String>> res = DBSearch.search(temp1.toArray(new String[temp1.size()]), temp2.toArray(new String[temp2.size()]));
-				for (int y = 0; y < res.size(); y++) {
-					if (res.get(y).get(8).equalsIgnoreCase("break")) {
-						sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を破壊しました。");
-					} else if (res.get(y).get(8).equalsIgnoreCase("place")) {
-						sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "に" + res.get(y).get(9) + "を設置しました。");
-					} else if (res.get(y).get(8).equalsIgnoreCase("burn")) {
-						sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を焼損しました。");
-					} else if (res.get(y).get(8).equalsIgnoreCase("explode")) {
-						sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を爆砕しました。");
+			Player player = null;
+			if (sender instanceof Player) {
+				player = (Player) sender;
+				if (args[0].equalsIgnoreCase("search")) {
+					// DBからデータを取ってきていろいろ表示する
+					List<String> temp1 = new ArrayList<String>();
+					List<String> temp2 = new ArrayList<String>();
+		
+			        for (int i = 1; i < args.length; i += 2) {
+			            temp1.add(args[i]);
+			        }
+		
+			        for (int i = 2; i < args.length; i += 2) {
+			            temp2.add(args[i]);
+			        }
+			        
+					List<List<String>> res = DBSearch.search(temp1.toArray(new String[temp1.size()]), temp2.toArray(new String[temp2.size()]));
+					for (int y = 0; y < res.size(); y++) {
+						if (res.get(y).get(8).equalsIgnoreCase("break")) {
+							sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を破壊しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("place")) {
+							sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "に" + res.get(y).get(9) + "を設置しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("burn")) {
+							sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を焼損しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("explode")) {
+							sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を爆砕しました。");
+						}
+					}
+				} else if (args[0].equalsIgnoreCase("list")) {
+					List<List<String>> res = DBSearch.search(new String[]{"*"}, new String[]{"*"});
+					
+					for (int y = 0; y < res.size(); y++) {
+						if (res.get(y).get(8).equalsIgnoreCase("break")) {
+							sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を破壊しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("place")) {
+							sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "に" + res.get(y).get(9) + "を設置しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("burn")) {
+							sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を焼損しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("explode")) {
+							sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を爆砕しました。");
+						}
 					}
 				}
-			} else if (args[0].equalsIgnoreCase("list")) {
-				List<List<String>> res = DBSearch.search(new String[]{"*"}, new String[]{"*"});
-				
-				for (int y = 0; y < res.size(); y++) {
-					if (res.get(y).get(8).equalsIgnoreCase("break")) {
-						sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を破壊しました。");
-					} else if (res.get(y).get(8).equalsIgnoreCase("place")) {
-						sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "に" + res.get(y).get(9) + "を設置しました。");
-					} else if (res.get(y).get(8).equalsIgnoreCase("burn")) {
-						sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を焼損しました。");
-					} else if (res.get(y).get(8).equalsIgnoreCase("explode")) {
-						sender.sendMessage(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を爆砕しました。");
+				return true;
+			} else {
+				if (args[0].equalsIgnoreCase("search")) {
+					// DBからデータを取ってきていろいろ表示する
+					List<String> temp1 = new ArrayList<String>();
+					List<String> temp2 = new ArrayList<String>();
+		
+			        for (int i = 1; i < args.length; i += 2) {
+			            temp1.add(args[i]);
+			        }
+		
+			        for (int i = 2; i < args.length; i += 2) {
+			            temp2.add(args[i]);
+			        }
+			        
+					List<List<String>> res = DBSearch.search(temp1.toArray(new String[temp1.size()]), temp2.toArray(new String[temp2.size()]));
+					for (int y = 0; y < res.size(); y++) {
+						if (res.get(y).get(8).equalsIgnoreCase("break")) {
+							getLogger().info(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を破壊しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("place")) {
+							getLogger().info(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "に" + res.get(y).get(9) + "を設置しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("burn")) {
+							getLogger().info(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を焼損しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("explode")) {
+							getLogger().info(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を爆砕しました。");
+						}
+					}
+				} else if (args[0].equalsIgnoreCase("list")) {
+					List<List<String>> res = DBSearch.search(new String[]{"*"}, new String[]{"*"});
+					
+					for (int y = 0; y < res.size(); y++) {
+						if (res.get(y).get(8).equalsIgnoreCase("break")) {
+							getLogger().info(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を破壊しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("place")) {
+							getLogger().info(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "に" + res.get(y).get(9) + "を設置しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("burn")) {
+							getLogger().info(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を焼損しました。");
+						} else if (res.get(y).get(8).equalsIgnoreCase("explode")) {
+							getLogger().info(res.get(y).get(0) + "が" + res.get(y).get(2) + "," + res.get(y).get(3) + "," + res.get(y).get(4) + "の" + res.get(y).get(9) + "を爆砕しました。");
+						}
 					}
 				}
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
