@@ -49,7 +49,6 @@ public class DBManager {
     }
     
     public static ResultSet RUN_DB(String query, Connection connection) {
-    	System.out.println("query is " + query);
     	try {
     		return connection.createStatement().executeQuery(query);
     	} catch (SQLException e) {
