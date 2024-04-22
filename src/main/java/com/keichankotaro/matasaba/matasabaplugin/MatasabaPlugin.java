@@ -17,11 +17,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCompleter {
+public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCompleter, Listener {
 	
 	private final int pageSize = 10;
     private int currentPage = 1;
@@ -75,6 +76,7 @@ public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCo
 		getServer().getPluginManager().registerEvents(new BlockManager(), this);
 		DBManager.connect();
 		DBManager.createTable();
+		getServer().getPluginManager().registerEvents(new PlayerManager(), this);
 		getLogger().info("また鯖プラグインが起動しました。");
 	}
 	
@@ -103,7 +105,7 @@ public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCo
 	}
 	
 	// ここから拠点tp
-	@SuppressWarnings("unlikely-arg-type")
+	@SuppressWarnings({ "unlikely-arg-type", "unused" })
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		
 		// ここからクライアントの言語の取得
@@ -131,9 +133,17 @@ public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCo
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
-			f.setAccessible(true);
 			try {
-				language = (String) f.get(ep);
+				f.setAccessible(true);
+			} catch (NullPointerException e) {
+				f = null;
+			}
+			try {
+				if (language == null || language.isEmpty() || f == null) {
+				    language = "ja_jp"; // デフォルトの言語を設定する
+				} else {
+					language = (String) f.get(ep);
+				}
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
@@ -291,6 +301,23 @@ public class MatasabaPlugin extends JavaPlugin implements CommandExecutor, TabCo
 			
 			return true;
 			// ここまでシード値の取得
+		} else if (cmd.getName().equalsIgnoreCase("accept")) {
+			Player player = (Player) sender;
+			if (DBManager.Check_EULA(player.getUniqueId() + "")) {
+				sender.sendMessage("すでに同意済みです。");
+			} else {
+				sender.sendMessage("同意確認！tpします。");
+				DBManager.AddDB_EULA(player.getDisplayName(), player.getUniqueId()+"");
+				Integer x = getConfig().getInt("base.x");
+				Integer y = getConfig().getInt("base.y");
+				Integer z = getConfig().getInt("base.z");
+				Integer yaw = getConfig().getInt("base.yaw");
+				Integer pitch = getConfig().getInt("base.pitch");
+				String world = getConfig().getString("base.world");
+				Location loc = new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch);
+				player.teleport(loc);
+			}
+			return true;
 		} else if (cmd.getName().equalsIgnoreCase("event")) {
 			Player player = null;
 			if (sender instanceof Player) {

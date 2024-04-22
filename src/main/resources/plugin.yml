@@ -21,6 +21,9 @@ commands:
   seed:
     description: "seed値を表示します。"
     usage: "/<command>"
+  accept:
+    description: "accept"
+    usage: "/<command>"
   event:
     description: "For Admin"
     permission: matasabaplugin.commands.event
