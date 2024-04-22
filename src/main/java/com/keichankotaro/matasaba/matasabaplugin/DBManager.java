@@ -65,11 +65,24 @@ public class DBManager {
     
     public static void AddDB_LastPlace(String id, String uuid, double x, double y, double z, double yaw, double pitch, String world) {
     	try {
-    		String query = "INSERT INTO LAST_PLACE VALUES (\""+id+"\", \""+uuid+"\", "+x+", "+y+","+z+", "+yaw+", "+pitch+", \""+world+"\")";
-    		connection.createStatement().execute(query);
-    	} catch (SQLException e) {
-    		e.printStackTrace();
-    	}
+            // 既存のUUIDが存在するか確認
+            String checkQuery = "SELECT COUNT(*) FROM LAST_PLACE WHERE UUID='" + uuid + "'";
+            ResultSet resultSet = connection.createStatement().executeQuery(checkQuery);
+            resultSet.next();
+            int count = resultSet.getInt(1);
+
+            if (count > 0) {
+                // 既存のUUIDが存在する場合は更新
+                String updateQuery = "UPDATE LAST_PLACE SET X=" + x + ", Y=" + y + ", Z=" + z + ", Yaw=" + yaw + ", Pitch=" + pitch + ", World='" + world + "' WHERE UUID='" + uuid + "'";
+                connection.createStatement().execute(updateQuery);
+            } else {
+                // 存在しない場合は挿入
+                String insertQuery = "INSERT INTO LAST_PLACE (ID, UUID, X, Y, Z, Yaw, Pitch, World) VALUES ('" + id + "', '" + uuid + "', " + x + ", " + y + ", " + z + ", " + yaw + ", " + pitch + ", '" + world + "')";
+                connection.createStatement().execute(insertQuery);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
 	public static boolean Check_EULA(String uuid) {
